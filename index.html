@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="L.N. Risk">
+
+    <title>Monitorador de Partos</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <script src="js/papaparse.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js" integrity="sha256-1O3BtOwnPyyRzOszK6P+gqaRoXHV6JXj8HkjZmPYhCI=" crossorigin="anonymous"></script>
+
+
+        <script id="robson-table" type="text/x-handlebars-template">
+          <div class="panel-body">
+            <table class="table table-hover table-condensed">
+              <tr>
+                <th class="col-md-1">Robson</th>
+                <th class="col-md-1">Cesáreas</th>
+                <th class="col-md-1">Total</th>
+                <th class="col-md-1">Taxa de CS, %</th>
+                <th class="col-md-1">Ref. Taxa de CS, %</th>
+                <th class="col-md-1">Tamanho Relativo, %</th>
+                <th class="col-md-1">Ref. Tamanho Relativo, %</th>
+                <th class="col-md-1">CS/Todos Partos, %</th>
+                <th class="col-md-1">Ref. CS/Todos Partos, %</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>{{G1C}}</td>
+                <td>{{G1T}}</td>
+                <td>{{G1M1}}</td>
+                <td>{{G1R1}}</td>
+                <td>{{G1M2}}</td>
+                <td>{{G1R2}}</td>
+                <td>{{G1M3}}</td>
+                <td>{{G1R3}}</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>{{G2C}}</td>
+                <td>{{G2T}}</td>
+                <td>{{G2M1}}</td>
+                <td>{{G2R1}}</td>
+                <td>{{G2M2}}</td>
+                <td>{{G2R2}}</td>
+                <td>{{G2M3}}</td>
+                <td>{{G2R3}}</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>{{G3C}}</td>
+                <td>{{G3T}}</td>
+                <td>{{G3M1}}</td>
+                <td>{{G3R1}}</td>
+                <td>{{G3M2}}</td>
+                <td>{{G3R2}}</td>
+                <td>{{G3M3}}</td>
+                <td>{{G3R3}}</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>{{G4C}}</td>
+                <td>{{G4T}}</td>
+                <td>{{G4M1}}</td>
+                <td>{{G4R1}}</td>
+                <td>{{G4M2}}</td>
+                <td>{{G4R2}}</td>
+                <td>{{G4M3}}</td>
+                <td>{{G4R3}}</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>{{G5C}}</td>
+                <td>{{G5T}}</td>
+                <td>{{G5M1}}</td>
+                <td>{{G5R1}}</td>
+                <td>{{G5M2}}</td>
+                <td>{{G5R2}}</td>
+                <td>{{G5M3}}</td>
+                <td>{{G5R3}}</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>{{G6C}}</td>
+                <td>{{G6T}}</td>
+                <td>{{G6M1}}</td>
+                <td>{{G6R1}}</td>
+                <td>{{G6M2}}</td>
+                <td>{{G6R2}}</td>
+                <td>{{G6M3}}</td>
+                <td>{{G6R3}}</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>{{G8C}}</td>
+                <td>{{G8T}}</td>
+                <td>{{G8M1}}</td>
+                <td>{{G8R1}}</td>
+                <td>{{G8M2}}</td>
+                <td>{{G8R2}}</td>
+                <td>{{G8M3}}</td>
+                <td>{{G8R3}}</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>{{G9C}}</td>
+                <td>{{G9T}}</td>
+                <td>{{G9M1}}</td>
+                <td>{{G9R1}}</td>
+                <td>{{G9M2}}</td>
+                <td>{{G9R2}}</td>
+                <td>{{G9M3}}</td>
+                <td>{{G9R3}}</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>{{G10C}}</td>
+                <td>{{G10T}}</td>
+                <td>{{G10M1}}</td>
+                <td>{{G10R1}}</td>
+                <td>{{G10M2}}</td>
+                <td>{{G10R2}}</td>
+                <td>{{G10M3}}</td>
+                <td>{{G10R3}}</td>
+              </tr>
+              <tr>
+                <td>T</td>
+                <td>{{GTC}}</td>
+                <td>{{GTT}}</td>
+                <td>{{GTM1}}</td>
+                <td>{{GTR1}}</td>
+                <td>{{GTM2}}</td>
+                <td>{{GTR2}}</td>
+                <td>{{GTM3}}</td>
+                <td>{{GTR3}}</td>
+              </tr>
+            </table>
+          </div>
+
+        </script>
+
+        <script id="collapse-head" type="text/x-handlebars-template">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#p{{HospitalID}}" aria-expanded="false" aria-controls="">
+                  {{HospitalID}}
+                </a>
+                <span style="float: right">Score: {{Score}}</span>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" role="tabpanel" id="p{{HospitalID}}">
+            </div>
+          </div>
+
+        </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header clearfix">
+        <h3 class="text-muted">Monitorador de Partos</h3>
+      </div>
+
+      <div class="jumbotron">
+        <label class="btn btn-default btn-file">
+            Carregar Base <input id="csv" type="file" style="display:none">
+        </label>
+      </div>
+
+      <div class="row marketing">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
